@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PyxisBackend.Contracts;
+using PyxisBackend.Contracts.Models;
 
 namespace PyxisBackend.Core.Controllers
 {
@@ -11,26 +11,28 @@ namespace PyxisBackend.Core.Controllers
     public class PingController : ControllerBase
     {
         private readonly ILoggerManager _logger;
+        private readonly IRepositoryWrapperPersonPet _repoWrapper;
 
-        public PingController(ILoggerManager logger)
+        public PingController(ILoggerManager logger, IRepositoryWrapperPersonPet repoWrapper)
         {
             _logger = logger;
+            _repoWrapper = repoWrapper;
         }
 
         // GET: api/Ping
         [HttpGet]
-        public IEnumerable<string> Get()
+        public Ping Get()
         {
             _logger.LogInfo("Here is info message from the controller.");
             _logger.LogDebug("Here is debug message from the controller.");
             _logger.LogWarn("Here is warn message from the controller.");
             _logger.LogError("Here is error message from the controller.");
-       
-            var response = new List<string>();
-            response.Add("ping1");
-            response.Add("ping2");
-            
-            return response;
+
+            var dogs = _repoWrapper.Pet.FindByCondition(x => x.AnimalType.Equals("Dog"));
+            var persons = _repoWrapper.Person.FindAll();
+
+            var ping = new Ping("ping");
+            return ping;
         }
 
         // GET: api/Ping/5
@@ -56,6 +58,15 @@ namespace PyxisBackend.Core.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+    }
+
+    public class Ping
+    {
+        public string Response { get; set; }
+        public Ping(string response)
+        {
+            Response = response;
         }
     }
 }

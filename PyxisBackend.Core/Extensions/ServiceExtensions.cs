@@ -44,6 +44,10 @@ namespace PyxisBackend.Core.Extensions
             });
         }
 
+        /// <summary>
+        /// Configure the RepositoryWrapper Service for the entities of Person and Pet
+        /// </summary>
+        /// <param name="services"></param>
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapperPersonPet, RepositoryWrapperPersonPet>();

@@ -34,11 +34,7 @@ namespace PyxisBackend.Core
 
             services.ConfigureRepositoryWrapper();
 
-            services.AddControllers().AddJsonOptions(options => 
-            {
-                // Use the default property (Pascal) casing.
-                options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
