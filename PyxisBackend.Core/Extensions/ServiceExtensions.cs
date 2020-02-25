@@ -18,7 +18,7 @@ namespace PyxisBackend.Core.Extensions
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
-                    .WithMethods("POST", "GET", "PUT")
+                    .WithMethods("GET", "POST", "PUT", "DELETE")
                     .AllowAnyHeader());
             });
         }
@@ -50,7 +50,7 @@ namespace PyxisBackend.Core.Extensions
         /// <param name="services"></param>
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-            services.AddScoped<IRepositoryWrapperPersonPet, RepositoryWrapperPersonPet>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         /// <summary>

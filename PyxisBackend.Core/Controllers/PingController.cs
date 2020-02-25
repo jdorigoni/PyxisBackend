@@ -6,17 +6,15 @@ using PyxisBackend.Contracts.Models;
 
 namespace PyxisBackend.Core.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ping")]
     [ApiController]
     public class PingController : ControllerBase
     {
         private readonly ILoggerManager _logger;
-        private readonly IRepositoryWrapperPersonPet _repoWrapper;
 
-        public PingController(ILoggerManager logger, IRepositoryWrapperPersonPet repoWrapper)
+        public PingController(ILoggerManager logger)
         {
             _logger = logger;
-            _repoWrapper = repoWrapper;
         }
 
         // GET: api/Ping
@@ -28,37 +26,34 @@ namespace PyxisBackend.Core.Controllers
             _logger.LogWarn("Here is warn message from the controller.");
             _logger.LogError("Here is error message from the controller.");
 
-            var dogs = _repoWrapper.Pet.FindByCondition(x => x.AnimalType.Equals("Dog"));
-            var persons = _repoWrapper.Person.FindAll();
-
             var ping = new Ping("ping");
             return ping;
         }
 
-        // GET: api/Ping/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "valueId";
-        }
+        //// GET: api/Ping/5
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "valueId";
+        //}
 
-        // POST: api/Ping
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST: api/Ping
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
 
-        // PUT: api/Ping/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //// PUT: api/Ping/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 
     public class Ping

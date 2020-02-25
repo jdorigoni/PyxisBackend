@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PyxisBackend.Contracts.Models
 {
-    public interface IRepositoryWrapperPersonPet
+    public interface IRepositoryWrapper
     {
         IPersonRepository Person { get; }
         IPetRepository Pet { get; }

@@ -3,7 +3,7 @@ using PyxisBackend.Entities;
 
 namespace PyxisBackend.Repository.Models
 {
-    public class RepositoryWrapperPersonPet : IRepositoryWrapperPersonPet
+    public class RepositoryWrapper : IRepositoryWrapper
     {
         private readonly RepositoryContext _repositoryContext;
         private IPersonRepository _person;
@@ -33,7 +33,7 @@ namespace PyxisBackend.Repository.Models
             }
         }
 
-        public RepositoryWrapperPersonPet(RepositoryContext repositoryContext)
+        public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
         }
