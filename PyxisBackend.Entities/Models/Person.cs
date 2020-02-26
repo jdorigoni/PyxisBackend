@@ -8,7 +8,9 @@ namespace PyxisBackend.Entities.Models
     [Table("persons")]
     public class Person
     {
-        public Guid PersonId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long PersonId { get; set; }
         
         [Required(ErrorMessage = "El Nombre es requerido")]
         [StringLength(100, ErrorMessage ="El Nombre no puede ser mayor a 100 caracteres")]

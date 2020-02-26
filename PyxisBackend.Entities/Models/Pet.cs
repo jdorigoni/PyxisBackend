@@ -7,8 +7,12 @@ namespace PyxisBackend.Entities.Models
     [Table("pets")]
     public class Pet
     {
-        public Guid PetId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long PetId { get; set; }
 
+        public string PetName { get; set; }
+        
         [Required(ErrorMessage = "El tipo de Animal es requerido.")]
         public string AnimalType { get; set; }
         

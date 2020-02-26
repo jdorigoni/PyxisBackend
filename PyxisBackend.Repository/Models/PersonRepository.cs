@@ -1,6 +1,8 @@
-﻿using PyxisBackend.Contracts.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PyxisBackend.Contracts.Models;
 using PyxisBackend.Entities;
 using PyxisBackend.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +19,19 @@ namespace PyxisBackend.Repository.Models
             return FindAll()
                   .OrderBy(per => per.PersonName)
                   .ToList(); 
+        }
+
+        public Person GetPersonById(Guid personId)
+        {
+            return FindByCondition(person => person.PersonId.Equals(personId))
+                  .FirstOrDefault();
+        }
+
+        public Person GetPersonWithDetails(Guid personId)
+        {
+            return FindByCondition(person => person.PersonId.Equals(personId))
+                  .Include(pet => pet.Pets)
+                  .FirstOrDefault();
         }
     }
 }

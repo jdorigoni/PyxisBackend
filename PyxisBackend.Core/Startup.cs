@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -29,6 +30,8 @@ namespace PyxisBackend.Core
             services.ConfigureIISIntegration();
 
             services.ConfigureLoggerService();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.ConfigureSqlServerContext(Configuration);
 
