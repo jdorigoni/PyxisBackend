@@ -7,6 +7,6 @@ namespace PyxisBackend.Contracts.Models
     public interface IPetRepository : IRepositoryBase<Pet>
     {
         IEnumerable<Pet> GetAllPets();
-        Pet GetPetById(Guid petId);
+        Pet GetPetById(long petId);
     }
 }

@@ -42,7 +42,7 @@ namespace PyxisBackend.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPetById(Guid id)
+        public IActionResult GetPetById(long id)
         {
             try
             {

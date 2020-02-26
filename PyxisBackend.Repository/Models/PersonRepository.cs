@@ -21,13 +21,13 @@ namespace PyxisBackend.Repository.Models
                   .ToList(); 
         }
 
-        public Person GetPersonById(Guid personId)
+        public Person GetPersonById(long personId)
         {
             return FindByCondition(person => person.PersonId.Equals(personId))
                   .FirstOrDefault();
         }
 
-        public Person GetPersonWithDetails(Guid personId)
+        public Person GetPersonWithDetails(long personId)
         {
             return FindByCondition(person => person.PersonId.Equals(personId))
                   .Include(pet => pet.Pets)

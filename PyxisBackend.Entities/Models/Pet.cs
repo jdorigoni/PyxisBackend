@@ -20,7 +20,7 @@ namespace PyxisBackend.Entities.Models
         public string Breed { get; set; }
 
         [ForeignKey(nameof(Person))]
-        public Guid PersonId { get; set; }
+        public long PersonId { get; set; }
 
         public Person Person { get; set; }
     }

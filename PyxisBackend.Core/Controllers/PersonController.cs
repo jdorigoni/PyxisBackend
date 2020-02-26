@@ -42,7 +42,7 @@ namespace PyxisBackend.Core.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPersonById(Guid id)
+        public IActionResult GetPersonById(long id)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace PyxisBackend.Core.Controllers
         }
 
         [HttpGet("{id}/pet")]
-        public IActionResult GetPersonWithDetails(Guid personId)
+        public IActionResult GetPersonWithDetails(long personId)
         {
             try
             {

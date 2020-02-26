@@ -20,7 +20,7 @@ namespace PyxisBackend.Repository.Models
                   .ToList();
         }
 
-        public Pet GetPetById(Guid petId)
+        public Pet GetPetById(long petId)
         {
             return FindByCondition(pet => pet.PetId.Equals(petId))
                   .FirstOrDefault();
