@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using PyxisBackend.Contracts;
 using PyxisBackend.Contracts.Models;
 using PyxisBackend.Entities.DTO;
+using PyxisBackend.Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PyxisBackend.Core.Controllers
 {
@@ -41,7 +43,7 @@ namespace PyxisBackend.Core.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "PersonById")]
         public IActionResult GetPersonById(long id)
         {
             try
@@ -68,7 +70,7 @@ namespace PyxisBackend.Core.Controllers
             }
         }
 
-        [HttpGet("{id}/pet")]
+        [HttpGet("{id}/person")]
         public IActionResult GetPersonWithDetails(long personId)
         {
             try
@@ -95,5 +97,105 @@ namespace PyxisBackend.Core.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult CreatePerson([FromBody]PersonForCreateUpdateDTO person)
+        {
+            try
+            {
+                if (person == null)
+                {
+                    _logger.LogError("Person object sent from client is null.");
+                    return BadRequest("Person object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid person object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
+
+                var personEntity = _mapper.Map<Person>(person);
+
+                _repository.Person.CreatePerson(personEntity);
+                _repository.Save();
+
+                var createdPerson = _mapper.Map<PersonDTO>(personEntity);
+
+                return CreatedAtRoute("PersonById", new { id = createdPerson.PersonId }, createdPerson);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside CreatePerson action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult UpdatePerson(long id, [FromBody]PersonForCreateUpdateDTO person)
+        {
+            try
+            {
+                if (person == null)
+                {
+                    _logger.LogError("Person object sent from client is null.");
+                    return BadRequest("Person object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogError("Invalid person object sent from client.");
+                    return BadRequest("Invalid model object");
+                }
+
+                var personEntity = _repository.Person.GetPersonById(id);
+                if (personEntity == null)
+                {
+                    _logger.LogError($"Person with id: {id}, hasn't been found in database.");
+                    return NotFound();
+                }
+
+                _mapper.Map(person, personEntity);
+
+                _repository.Person.UpdatePerson(personEntity);
+                _repository.Save();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside UpdatePerson action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePerson(long id)
+        {
+            try
+            {
+                var person = _repository.Person.GetPersonById(id);
+                if (person == null)
+                {
+                    _logger.LogError($"Person with id: {id}, hasn't been found in database.");
+                    return NotFound();
+                }
+                if (_repository.Pet.PetsByPerson(id).Any())
+                {
+                    _logger.LogError($"Cannot delete person with id: {id}. It has related pets. Delete those pets first");
+                    return BadRequest("Cannot delete person. It has related pets. Delete those pets first");
+                }
+
+                _repository.Person.DeletePerson(person);
+                _repository.Save();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Something went wrong inside DeletePerson action: {ex.Message}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

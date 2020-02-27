@@ -13,25 +13,82 @@ namespace PyxisBackend.Repository.Models
         public PersonRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
-
+        
         public IEnumerable<Person> GetAllPersons()
         {
-            return FindAll()
+            try
+            {
+                return FindAll()
                   .OrderBy(per => per.PersonName)
-                  .ToList(); 
+                  .ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }            
         }
 
         public Person GetPersonById(long personId)
         {
-            return FindByCondition(person => person.PersonId.Equals(personId))
+            try
+            {
+                return FindByCondition(person => person.PersonId.Equals(personId))
                   .FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }            
         }
 
         public Person GetPersonWithDetails(long personId)
         {
-            return FindByCondition(person => person.PersonId.Equals(personId))
-                  .Include(pet => pet.Pets)
-                  .FirstOrDefault();
+            try
+            {
+                return FindByCondition(person => person.PersonId.Equals(personId))
+                      .Include(pet => pet.Pets)
+                      .FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void CreatePerson(Person person)
+        {
+            try
+            {
+                Create(person);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        
+        public void UpdatePerson(Person person)
+        {
+            try
+            {
+                Update(person);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void DeletePerson(Person person)
+        {
+            try
+            {
+                Delete(person);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

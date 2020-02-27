@@ -47,6 +47,20 @@ namespace PyxisBackend.Core
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.Use(async (context, next) =>
+                {
+                    await next();
+                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
+                });
+                // The default HSTS value is 30 days. 
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 

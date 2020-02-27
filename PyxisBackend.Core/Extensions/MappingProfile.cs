@@ -8,8 +8,10 @@ namespace PyxisBackend.Core.Extensions
     {
         public MappingProfile()
         {
+    
             CreateMap<Person, PersonDTO>();
-            CreateMap<Pet, PetDTO>();
-        }
+            CreateMap<PersonForCreateUpdateDTO, Person>();
+            CreateMap<Pet, PetDTO>();}
+    
     }
 }

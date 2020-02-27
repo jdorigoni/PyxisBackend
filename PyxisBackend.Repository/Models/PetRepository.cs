@@ -25,5 +25,10 @@ namespace PyxisBackend.Repository.Models
             return FindByCondition(pet => pet.PetId.Equals(petId))
                   .FirstOrDefault();
         }
+
+        public IEnumerable<Pet> PetsByPerson(long personId)
+        {
+            return FindByCondition(p => p.PersonId.Equals(personId)).ToList();
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace PyxisBackend.Contracts.Models
     {
         IEnumerable<Pet> GetAllPets();
         Pet GetPetById(long petId);
+        IEnumerable<Pet> PetsByPerson(long personId);
     }
 }
