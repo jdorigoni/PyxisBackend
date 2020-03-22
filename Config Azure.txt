@@ -1,0 +1,13 @@
+Server name
+	pyxisbackend.database.windows.net
+admin login:	fors
+password	P4ssW0rd1Pyxis
+Administrator VM:	fors
+Administrator password:	Encr1pt4d0Fors
+
+
+SQL Authentication
+Login name:		fors
+Password:		Encr1pt4d0Fors
+
+Data Source=pyxisbackend.database.windows.net;Initial Catalog=pyxis;User ID=fors;Password=P4ssW0rd1Pyxis;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
