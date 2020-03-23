@@ -16,13 +16,13 @@ namespace PyxisBackend.Repository.Models
         public IEnumerable<Pet> GetAllPets()
         {
             return FindAll()
-                  .OrderBy(pet => pet.PetName)
+                  .OrderBy(pet => pet.Name)
                   .ToList();
         }
 
         public Pet GetPetById(long petId)
         {
-            return FindByCondition(pet => pet.PetId.Equals(petId))
+            return FindByCondition(pet => pet.Id.Equals(petId))
                   .FirstOrDefault();
         }
 

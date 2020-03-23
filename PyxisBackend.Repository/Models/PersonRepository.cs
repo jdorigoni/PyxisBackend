@@ -19,7 +19,7 @@ namespace PyxisBackend.Repository.Models
             try
             {
                 return FindAll()
-                  .OrderBy(per => per.PersonName)
+                  .OrderBy(per => per.LastName)
                   .ToList();
             }
             catch (Exception)
@@ -32,7 +32,7 @@ namespace PyxisBackend.Repository.Models
         {
             try
             {
-                return FindByCondition(person => person.PersonId.Equals(personId))
+                return FindByCondition(person => person.Id.Equals(personId))
                   .FirstOrDefault();
             }
             catch (Exception)
@@ -45,7 +45,7 @@ namespace PyxisBackend.Repository.Models
         {
             try
             {
-                return FindByCondition(person => person.PersonId.Equals(personId))
+                return FindByCondition(person => person.Id.Equals(personId))
                       .Include(pet => pet.Pets)
                       .FirstOrDefault();
             }

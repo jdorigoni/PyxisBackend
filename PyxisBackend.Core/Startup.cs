@@ -33,7 +33,7 @@ namespace PyxisBackend.Core
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.ConfigureSqlServerContext(Configuration);
+            services.ConfigureMySqlContext(Configuration);
 
             services.ConfigureRepositoryWrapper();
 

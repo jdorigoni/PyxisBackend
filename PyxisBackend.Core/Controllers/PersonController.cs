@@ -121,7 +121,7 @@ namespace PyxisBackend.Core.Controllers
 
                 var createdPerson = _mapper.Map<PersonDTO>(personEntity);
 
-                return CreatedAtRoute("PersonById", new { id = createdPerson.PersonId }, createdPerson);
+                return CreatedAtRoute("PersonById", new { id = createdPerson.Id }, createdPerson);
             }
             catch (Exception ex)
             {

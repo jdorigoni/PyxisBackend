@@ -1,0 +1,17 @@
+Download MySQL Server: https://dev.mysql.com/downloads/windows/installer/8.0.html
+	-Install Custom and Select only the Server and the NET Connector. (not necessary other tools)
+	-Configure:
+		-Standalone
+		-Development Computer (Connectivity on default values and check Show Advanced and Logging Options)
+		-Authentication	(Use strong Password Encription...)
+		-MySQL Root Password: PyxisBackendDbRoot
+		(create other [dba/dbo] users if neccesary)
+		(like: pyxis_dba | Role: DB Admin | Password: PyxisBackendDb1234)
+		-Check "Configure MySQL Server as Windows Service" 
+		 but Uncheck "Start Start MySQL Server at System Startup"
+		-Select "Standar System Account"
+		-then next next execute
+
+Download EMS MySQL Manager:
+http://download3.sqlmanager.net/download/mymanager/mymanager.zip
+		

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PyxisBackend.Entities.Migrations
 {
-    public partial class PyxisBackendEntitiesRepositoryContext : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,36 +11,37 @@ namespace PyxisBackend.Entities.Migrations
                 name: "persons",
                 columns: table => new
                 {
-                    PersonId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PersonName = table.Column<string>(maxLength: 100, nullable: false),
-                    PersonEmail = table.Column<string>(maxLength: 100, nullable: false),
-                    PersonPassword = table.Column<string>(maxLength: 100, nullable: false)
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    Password = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_persons", x => x.PersonId);
+                    table.PrimaryKey("PK_persons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "pets",
                 columns: table => new
                 {
-                    PetId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PetName = table.Column<string>(nullable: true),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
                     AnimalType = table.Column<string>(nullable: false),
                     Breed = table.Column<string>(nullable: false),
                     PersonId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_pets", x => x.PetId);
+                    table.PrimaryKey("PK_pets", x => x.Id);
                     table.ForeignKey(
                         name: "FK_pets_persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "persons",
-                        principalColumn: "PersonId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
